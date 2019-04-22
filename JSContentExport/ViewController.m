@@ -51,7 +51,28 @@
     _context = [self.webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
     JSValue *value = [JSValue valueWithObject:_callNative inContext:_context];
     [_context setObject:value forKeyedSubscript:@"pkgMgrNativeApi"];
+    
+    __weak typeof(self)weakSelf = self;
+    _context[@"callNative"] = ^(NSString *func, NSString *param, NSString *callBack) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        [strongSelf callNative:func param:param callBack:callBack];
+    };
+    
+    _context[@"callNative1"] = ^(NSString *func, NSString *param, NSString *callBack) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        [strongSelf callNative1:func param:param callBack:callBack];
+    };
+
 }
+
+- (void)callNative:(NSString *)func param:(NSString *)param callBack:(NSString *)callBack {
+    NSLog(@"%s,%@,%@,%@",__FUNCTION__,func, param, callBack);
+}
+
+- (void)callNative1:(NSString *)func param:(NSString *)param callBack:(NSString *)callBack {
+    NSLog(@"%s,%@,%@,%@",__FUNCTION__,func, param, callBack);
+}
+
 
 - (void)runNative {
     NSLog(@"------->");

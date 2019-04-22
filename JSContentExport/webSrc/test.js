@@ -9,10 +9,12 @@ function runNative() {
                 console.log(rsp);
                 return;
             }
-             console.log(3);
+//             console.log(3);
             pkgMgrNativeApi.pkgMgrNativeApi("quwyequwyei");
              pkgMgrNativeApi.pkgMgrNativeApi1(10);
-            console.log(2);
+//            console.log(2);
+             callNative("func","param","callBack");
+             callNative1("func1","param1","callBack1");
          }catch(err){
              var rsp = {ret:"pkgMgrNativeApi call fail",readon:err.message+ "  " + err.stack};
              console.log(rsp);
